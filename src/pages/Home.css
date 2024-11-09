@@ -17,3 +17,13 @@
     width: 3%;
     height: 3%;
   }
+
+  .edit {
+    position: relative;    
+    cursor: pointer;
+    padding-left: 4px;
+    padding-bottom: 3px;
+    float: right;
+    width: 5%;
+    height: 3%;
+  }

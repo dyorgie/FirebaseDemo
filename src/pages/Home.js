@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import {getDocs, collection, deleteDoc, doc, onSnapshot} from 'firebase/firestore';
+import { Link, useNavigate } from 'react-router-dom'
+import {getDocs, collection, deleteDoc, doc, onSnapshot, updateDoc, where} from 'firebase/firestore';
 import {db} from '../firebase/config'
 import { useEffect,useState } from 'react';
 import DeleteIcon from '../assets/delete.svg'
@@ -33,12 +33,18 @@ export default function Home() {
         setArticles(results);
       })    
   },[])
+const navigate = useNavigate();
+
+
+  const handleEdit = async (id) => {
+    navigate(`/edit/${id}`)
+  }
 
   
   const handleDelete = async (id) => {
-    const ref = doc(db, 'articles', id)
+    const refDoc = doc(db, 'articles', id)
       //loading = true
-    deleteDoc(ref).then(
+    deleteDoc(refDoc).then(
         //loading false;
     );
   }
@@ -50,12 +56,14 @@ export default function Home() {
         <div key={article.id} className="card">
           <h3>{article.title}</h3>
           <p>Written by {article.author}</p>
+          
           <Link to={`/articles/${article.id}`}>Read More...</Link>
           <img 
             className="icon"
             onClick={() => handleDelete(article.id)}
             src={DeleteIcon} alt="delete icon" 
           />
+          <button className='edit' onClick={handleEdit}>Edit</button>
         </div>
       ))}
     </div>
