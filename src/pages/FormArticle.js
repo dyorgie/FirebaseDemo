@@ -6,27 +6,18 @@ import {db} from '../firebase/config'
 import './create.css'
 
 export default function Create() {  
-  // const [title, setTitle] = useState('')
-  // const [author, setAuthor] = useState('')
-  // const [description, setDescription] = useState('')
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
+  const [description, setDescription] = useState('')
   
   const navigate = useNavigate()
-
- const title = useRef(null);
- const author = useRef(null);
- const description = useRef(null);
-
   
 
   const handleSubmit = async (e) => {
     e.preventDefault()   
-    const article = {
-      title: title.current.value,
-      author: author.current.value,
-      description: description.current.value
-    }
+    const article = {title,author,description};
     const ref = collection(db, 'articles')
-     await addDoc(ref,article)
+    await addDoc(ref,article)
 
     // setTitle("");
     // setAuthor("");
@@ -37,15 +28,15 @@ export default function Create() {
 
   return (
     <div className="create">
-      <h2 className="page-title">Add a New Recipe</h2>
+      <h2 className="page-title">Add a New Article</h2>
       <form onSubmit={handleSubmit}>
 
         <label>
           <span>Title:</span>
           <input 
             type="text" 
-            // onChange={(e) => setTitle(e.target.value)}
-            ref={title}
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
             required
           />
         </label>
@@ -54,8 +45,8 @@ export default function Create() {
           <span>Author:</span>
           <input 
             type="text" 
-            // onChange={(e) => setAuthor(e.target.value)}
-            ref={author}
+            onChange={(e) => setAuthor(e.target.value)}
+            value={author}
             required
           />
         </label>
@@ -63,8 +54,8 @@ export default function Create() {
         <label>
           <span>Description:</span>
           <textarea 
-            // onChange={(e) => setDescription(e.target.value)}
-            ref={description}
+            onChange={(e) => setDescription(e.target.value)}
+            value={description}
             required
           />
         </label>
